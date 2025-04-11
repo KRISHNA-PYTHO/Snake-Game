@@ -315,3 +315,56 @@ function checkCollision() {
         gameOver();
     }
 }
+// ... existing code ...
+
+// Add touch controls
+document.getElementById('upBtn').addEventListener('click', () => {
+    if (direction !== 'down') direction = 'up';
+});
+
+document.getElementById('downBtn').addEventListener('click', () => {
+    if (direction !== 'up') direction = 'down';
+});
+
+document.getElementById('leftBtn').addEventListener('click', () => {
+    if (direction !== 'right') direction = 'left';
+});
+
+document.getElementById('rightBtn').addEventListener('click', () => {
+    if (direction !== 'left') direction = 'right';
+});
+
+// Add touch swipe support
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+});
+
+document.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+}, { passive: false });
+
+document.addEventListener('touchend', (e) => {
+    let touchEndX = e.changedTouches[0].clientX;
+    let touchEndY = e.changedTouches[0].clientY;
+    
+    let deltaX = touchEndX - touchStartX;
+    let deltaY = touchEndY - touchStartY;
+    
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX > 0 && direction !== 'left') {
+            direction = 'right';
+        } else if (deltaX < 0 && direction !== 'right') {
+            direction = 'left';
+        }
+    } else {
+        if (deltaY > 0 && direction !== 'up') {
+            direction = 'down';
+        } else if (deltaY < 0 && direction !== 'down') {
+            direction = 'up';
+        }
+    }
+});
