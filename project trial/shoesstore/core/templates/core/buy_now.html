@@ -1,0 +1,305 @@
+{% extends "core/base.html" %}
+{% block content %}
+{% load custom_filters %}
+
+<div class="buy-now-wrapper">
+    <div class="product-section">
+        <div class="product-card">
+            <div class="image-gallery">
+                <div class="main-image-container">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <div class="floating-tag">
+                        <div class="discount-pill">{{ product.discount_percentage }}% OFF</div>
+                        <div class="stock-pill">In Stock</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-details">
+                <h1 class="product-title">{{ product.name }}</h1>
+                <div class="price-section">
+                    <div class="price-tags">
+                        <span class="main-price">₹{{ product.discounted_price }}</span>
+                        <span class="old-price">₹{{ product.original_price }}</span>
+                        <div class="savings-tag">
+                            <i class="fas fa-piggy-bank"></i>
+                            You Save ₹{{ product.original_price|subtract:product.discounted_price }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-truck-fast"></i>
+                        <div class="feature-text">
+                            <h4>Fast Delivery</h4>
+                            <p>2-3 Business Days</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-heart"></i>
+                        <div class="feature-text">
+                            <h4>Secure Payment</h4>
+                            <p>100% Protected</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-rotate-left"></i>
+                        <div class="feature-text">
+                            <h4>Easy Returns</h4>
+                            <p>7 Days Policy</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-medal"></i>
+                        <div class="feature-text">
+                            <h4>Genuine Product</h4>
+                            <p>Quality Assured</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="checkout-section">
+        <div class="progress-tracker">
+            <div class="track-step active">
+                <div class="step-icon"><i class="fas fa-box"></i></div>
+                <div class="step-label">Product</div>
+            </div>
+            <div class="track-step active">
+                <div class="step-icon"><i class="fas fa-location-dot"></i></div>
+                <div class="step-label">Address</div>
+            </div>
+            <div class="track-step">
+                <div class="step-icon"><i class="fas fa-credit-card"></i></div>
+                <div class="step-label">Payment</div>
+            </div>
+        </div>
+
+        <form method="POST" action="{% url 'payment' %}" class="checkout-form">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            
+            <div class="address-section">
+                <div class="section-title">
+                    <h2>Delivery Address</h2>
+                    <a href="{% url 'address' %}" class="new-address-btn">
+                        <i class="fas fa-plus"></i> Add Address
+                    </a>
+                </div>
+
+                <div class="address-cards">
+                    {% for add in address %}
+                    <label class="address-selector">
+                        <input type="radio" name="selected_address" value="{{ add.id }}" {% if forloop.first %}checked{% endif %}>
+                        <div class="address-card-content">
+                            <div class="address-header">
+                                <div class="avatar">{{ add.name|make_list|first }}</div>
+                                <div class="address-info">
+                                    <h3>{{ add.name }}</h3>
+                                    <span class="type-badge">Home</span>
+                                </div>
+                                <div class="check-mark">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="address-body">
+                                <p><i class="fas fa-map-marker-alt"></i> {{ add.address }}</p>
+                                <p><i class="fas fa-city"></i> {{ add.city }}, {{ add.state }}</p>
+                                <p><i class="fas fa-location-dot"></i> {{ add.pincode }}</p>
+                            </div>
+                        </div>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="price-breakdown">
+                <h2>Price Details</h2>
+                <div class="price-list">
+                    <div class="price-item">
+                        <span>Product Price</span>
+                        <span>₹{{ product.discounted_price }}</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Delivery Fee</span>
+                        <span>₹100</span>
+                    </div>
+                    <div class="price-item total">
+                        <span>Total Amount</span>
+                        <span>₹{{ product.discounted_price|add:100 }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-area">
+                <a href="{% url 'product_detail' product.id %}" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+                <button type="submit" class="checkout-button">
+                    Proceed to Pay <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+/* Core Variables */
+:root {
+    --primary: #007bff;
+    --secondary: #00ff88;
+    --gradient: linear-gradient(45deg, var(--primary), var(--secondary));
+}
+
+.buy-now-wrapper {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0, 123, 255, 0.1);
+}
+
+.product-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, 
+        rgba(0, 123, 255, 0.05), 
+        rgba(0, 255, 136, 0.05)
+    );
+    border-radius: 30px;
+}
+
+.main-image-container img {
+    transform: scale(0.95);
+    transition: transform 0.5s ease;
+}
+
+.main-image-container:hover img {
+    transform: scale(1);
+}
+
+.discount-pill {
+    background: var(--gradient);
+    animation: pulseGlow 2s infinite;
+}
+
+.stock-pill {
+    background: rgba(0, 255, 136, 0.9);
+    backdrop-filter: blur(5px);
+}
+
+.main-price {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem;
+}
+
+.feature-card {
+    border: 1px solid rgba(0, 123, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    background: var(--gradient);
+    color: white;
+}
+
+.feature-card:hover i,
+.feature-card:hover h4,
+.feature-card:hover p {
+    color: white;
+}
+
+.progress-tracker::before {
+    background: linear-gradient(to right,
+        var(--primary) 50%,
+        rgba(0, 123, 255, 0.2) 50%
+    );
+    background-size: 200% 100%;
+    animation: progressFlow 2s linear infinite;
+}
+
+.address-card-content {
+    position: relative;
+    overflow: hidden;
+}
+
+.address-card-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.address-selector input[type="radio"]:checked + .address-card-content::before {
+    opacity: 0.05;
+}
+
+.avatar {
+    background: var(--gradient);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+.checkout-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.checkout-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.checkout-button:hover::before {
+    left: 100%;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 123, 255, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(0, 255, 136, 0.5); }
+}
+
+@keyframes progressFlow {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 768px) {
+    .buy-now-wrapper {
+        padding: 20px;
+    }
+    
+    .main-price {
+        font-size: 2rem;
+    }
+    
+    .progress-tracker {
+        padding: 0 20px;
+    }
+}
+</style>
+{% endblock content %}

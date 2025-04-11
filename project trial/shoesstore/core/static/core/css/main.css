@@ -1,0 +1,300 @@
+/* ================= Global Styles ================= */
+body {
+    background: linear-gradient(135deg, #ffe02f, #ff5c20);
+    transition: background 0.5s ease;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* ================= Navbar Styles ================= */
+  .navbar-custom {
+    background: linear-gradient(135deg, #FFD700, #FF4500);
+    padding: 15px;
+    transition: background 0.3s ease-in-out, padding 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-custom .navbar-brand,
+  .navbar-custom .nav-user {
+    font-weight: bold;
+    color: #fff;
+    transition: color 0.3s;
+  }
+  
+  .navbar-custom .navbar-brand:hover {
+    color: #FF4500;
+  }
+  
+  .navbar-custom .nav-link {
+    color: #fff;
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .navbar-custom .nav-link:hover {
+    color: #ffd700;
+    transform: scale(1.1);
+  }
+  
+  .navbar-custom .dropdown-menu {
+    background-color: #ffd700;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-custom .dropdown-item {
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .navbar-custom .dropdown-item:hover {
+    background-color: #ff4500;
+    color: #fff;
+  }
+  
+  .custom-search-bar {
+    border-radius: 20px;
+    border: 1px solid #fff;
+    padding: 5px 15px;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* ================= Carousel Styles ================= */
+  .carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  }
+  
+  .carousel-caption {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  
+  .carousel-caption h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .carousel-caption .btn-custom {
+    background-color: #FFD700;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  .carousel-caption .btn-custom:hover {
+    background-color: #FF4500;
+    transform: scale(1.1);
+  }
+  
+  /* ================= Card Styles ================= */
+  .card {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    object-fit: cover;
+    height: 200px;
+  }
+  
+  .card-body {
+    background-color: #f8f9fa;
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+  .card-text {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* ================= Featurette Styles ================= */
+  .featurette-divider {
+    border-top: 1px solid #ddd;
+    margin: 3rem 0;
+  }
+  
+  .featurette-heading {
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.05rem;
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+  
+  .featurette-heading:hover {
+    color: #FF4500;
+  }
+  
+  .featurette-image {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .featurette-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* ================= Footer Styles ================= */
+  footer {
+    background: linear-gradient(135deg, #FFD700, #FF4500);
+    padding: 2rem 0;
+    color: #fff;
+  }
+  
+  footer h5 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  footer ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  footer ul li a:hover {
+    color: #ffd700;
+  }
+  
+  /* ================= Responsive Styles ================= */
+  @media (max-width: 768px) {
+    .navbar-custom {
+      padding: 10px;
+    }
+  
+    .carousel-caption h1 {
+      font-size: 2rem;
+    }
+  
+    .carousel-caption p {
+      font-size: 1rem;
+    }
+  
+    .featurette-heading {
+      font-size: 2rem;
+    }
+  
+    .card-deck {
+      flex-direction: column;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .navbar-custom .navbar-brand {
+      font-size: 1.2rem;
+    }
+  
+    .carousel-item img {
+      max-height: 300px;
+    }
+  }
+.container h1{
+  margin-top: 100px;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.05rem;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.container h1:hover{
+  color: #FF4500;
+}
+
+/* Women's Shoes Card Styles */
+.container {
+  margin-top: 50px;
+}
+
+.card_women_shoes_card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+}
+
+.card_women_shoes_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.text-center h5 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.text-dark {
+  color: #000 !important;
+}
+
+.rupee del {
+  font-size: 0.9rem;
+  color: #777;
+  margin-left: 5px;
+}
+
+.text-danger {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.text-muted {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .card_women_shoes_card {
+      margin-bottom: 15px;
+  }
+  
+  .card-img-top {
+      height: 200px;
+  }
+}
